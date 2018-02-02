@@ -2,7 +2,7 @@
   <div class="container buttonContainer">
     <div class="row">
       <div  class="center-block text-center">
-          <button type="submit" class="btn btn-success">Create</button>
+        <ModelCreateDialog/>
           <button type="submit" class="btn btn-success">Copy</button>
       </div>
     </div>
@@ -10,17 +10,22 @@
 </template>
 
 <script>
+import ModelCreateDialog from './ModelCreateDialog';
+
   export default {
     name: 'ModelMenuBar',
     data () {
       return {
       }
+    },
+    components: {
+      ModelCreateDialog
     }
   }
 </script>
 
 <style scoped>
-.buttonContainer {
-  margin-bottom: 1%;
-}
+  .buttonContainer {
+    margin-bottom: 1%;
+  }
 </style>
