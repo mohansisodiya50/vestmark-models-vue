@@ -4,62 +4,68 @@
       <div id="createModel" class="overlay">
          <div class="popup">
             <div class="container dialogContainer content">
-               <div class="row">
-                  <label>Model Display Name:</label>
-                  <input class="modelDialog" v-model="message">
-               </div>
-               <br>
-               <div class="row">
-                  <label>Model Description:</label>
-                  <textarea class="modelDialog"></textarea>
-               </div>
-               <br>
-               <div class="row">
-                  <label>Model Type:</label>
-                  <select name="" id="" class="modelDialog" >
-                     <option value="">Asset Allocation</option>
-                     <option value="">Standard</option>
-                     <option value="">Security Only</option>
-                     <option value="">Flexible</option>
-                     <option value="">Template-based</option>
-                  </select>
-               </div>
-               <br>
-               <div class="row">
-                  <label>Sponsor Program:</label>
-                  <select name="" id="" class="modelDialog" >
-                     <option value="">XFI-VTAP</option>
-                     <option value="">SMB-VTAP</option>
-                     <option value="">XFI-VMAP</option>
-                     <option value="">UBS-VTAP</option>
-                     <option value="">UBS-VMAP</option>
-                  </select>
-               </div>
-               <br>
-               <div class="row">
-                  <div class="radio">
-                     <label><input class="byRadio" type="radio" name="optradio">By Manager:</label>
-                  </div>
-               </div>
-               <div class="row">
-                  <small>Manager:</small>
-                  <select name="" id="" class="modelDialog" >
-                     <option value="">XFI-VTAP</option>
-                     <option value="">SMB-VTAP</option>
-                  </select>
-               </div>
-               <br>
-               <div class="row">
-                  <div class="radio">
-                     <label><input class="byRadio" type="radio" name="optradio">By Rep-Code:</label>
-                  </div>
-               </div>
-               <div class="row">
-                  <small>Rep-Code:</small>
-                  <input class="modelDialog" v-model="message">
-               </div>
+              <div class="form-group">
+                <div class="row">
+                   <label for="modelName">Model Display Name:</label>
+                   <input type="text" id="modelName" class="modelDialog form-control" v-model="newModel.modelName">
+                </div>
+                <br>
+                <div class="row">
+                   <label for="modelDescription">Model Description:</label>
+                   <textarea class="modelDialog form-control" id="modelDescription" v-model="newModel.modelDescription"></textarea>
+                </div>
+                <br>
+                <div class="row">
+                   <label for="modelType">Model Type:</label>
+                   <select id="modelType" class="modelDialog form-control" v-model="newModel.modelType">
+                      <option disabled value="">Please select one</option>
+                      <option>Asset Allocation</option>
+                      <option>Standard</option>
+                      <option>Security Only</option>
+                      <option>Flexible</option>
+                      <option>Template-based</option>
+                   </select>
+                </div>
+                <br>
+                <div class="row">
+                   <label for="sponsorProgram">Sponsor Program:</label>
+                   <select id="sponsorProgram" class="modelDialog form-control" v-model="newModel.sponsorProgram">
+                     <option disabled  value="">Please select one</option>
+                      <option>XFI-VTAP</option>
+                      <option>SMB-VTAP</option>
+                      <option>XFI-VMAP</option>
+                      <option>UBS-VTAP</option>
+                      <option>UBS-VMAP</option>
+                   </select>
+                </div>
+                <br>
+                <div class="row">
+                   <div class="radio">
+                      <label><input id="byManager" class="byRadio" type="radio" name="optradio" :value="false" v-model="selected">By Manager:</label>
+                   </div>
+                </div>
+                <div class="row">
+                   <small>Manager:</small>
+                   <select id="" class="modelDialog form-control"  v-model="newModel.manager">
+                      <option disabled  value="">Please select one</option>
+                      <option value="">XFI-VTAP</option>
+                      <option value="">SMB-VTAP</option>
+                   </select>
+                </div>
+                <br>
+                <div class="row">
+                   <div class="radio">
+                      <label><input id="byRepCode" class="byRadio" type="radio" name="optradio" :value="true" v-model="selected">By Rep-Code:</label>
+                   </div>
+                </div>
+                <div class="row">
+                   <small>Rep-Code:</small>
+                   <input class="modelDialog form-control"  v-model="newModel.repCode">
+                </div>
+              </div>
+
             </div>
-            <ModelFooter/>
+            <ModelFooter :createModel="createNewModel"/>
          </div>
       </div>
    </span>
@@ -67,16 +73,37 @@
 
 <script>
 import ModelFooter from './ModelFooter';
+import db from '../ModelDatabase';
+let modelsRef = db.ref("models");
 
   export default {
     name: 'ModelCreateDialog',
     data () {
       return {
-
+        newModel: {
+            modelName: '',
+            modelDescription: '',
+            modelType: '',
+            sponsorProgram: '',
+            manager: '',
+            repCode: ''
+        },
+        selected: false
       }
     },
     components: {
       ModelFooter
+    },
+    methods: {
+      createNewModel: function () {
+        modelsRef.push(this.newModel);
+        this.newModel.modelName = '';
+        this.newModel.modelDescription = '';
+        this.newModel.modelType = '';
+        this.newModel.sponsorProgram = '';
+        this.newModel.manager = '';
+        this.newModel.repCode = '';
+      }
     }
   }
 </script>
