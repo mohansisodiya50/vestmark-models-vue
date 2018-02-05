@@ -9,10 +9,6 @@
   export default {
     name: 'ModelFooter',
     props: ['createModel'],
-    data: () => {
-      return {
-      }
-    },
     methods: {
       saveModel: function () {
         this.createModel();
@@ -20,7 +16,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>

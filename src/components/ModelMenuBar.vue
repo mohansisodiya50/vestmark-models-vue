@@ -2,7 +2,7 @@
   <div class="container buttonContainer">
     <div class="row">
       <div  class="center-block text-center">
-        <ModelCreateDialog/>
+        <ModelCreateDialog :createModel="createModel"/>
           <button type="submit" class="btn btn-success" @click="copyModel">Copy</button>
       </div>
     </div>
@@ -15,6 +15,7 @@ import ModelCreateDialog from './ModelCreateDialog';
 
 export default {
   name: 'ModelMenuBar',
+  props: ['createModel'],
   components: {
     ModelCreateDialog
   },

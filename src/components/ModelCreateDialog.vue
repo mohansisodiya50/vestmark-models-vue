@@ -46,10 +46,10 @@
                 </div>
                 <div class="row">
                    <small>Manager:</small>
-                   <select id="" class="modelDialog form-control"  v-model="newModel.manager">
+                   <select id="manager" class="modelDialog form-control"  v-model="newModel.manager">
                       <option disabled  value="">Please select one</option>
-                      <option value="">XFI-VTAP</option>
-                      <option value="">SMB-VTAP</option>
+                      <option>XFI-VTAP</option>
+                      <option>SMB-VTAP</option>
                    </select>
                 </div>
                 <br>
@@ -63,7 +63,6 @@
                    <input class="modelDialog form-control"  v-model="newModel.repCode">
                 </div>
               </div>
-
             </div>
             <ModelFooter :createModel="createNewModel"/>
          </div>
@@ -73,11 +72,10 @@
 
 <script>
 import ModelFooter from './ModelFooter';
-import db from '../ModelDatabase';
-let modelsRef = db.ref("models");
 
   export default {
     name: 'ModelCreateDialog',
+    props: ['createModel'],
     data () {
       return {
         newModel: {
@@ -96,13 +94,7 @@ let modelsRef = db.ref("models");
     },
     methods: {
       createNewModel: function () {
-        modelsRef.push(this.newModel);
-        this.newModel.modelName = '';
-        this.newModel.modelDescription = '';
-        this.newModel.modelType = '';
-        this.newModel.sponsorProgram = '';
-        this.newModel.manager = '';
-        this.newModel.repCode = '';
+        this.createModel(this.newModel);
       }
     }
   }

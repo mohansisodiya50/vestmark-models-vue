@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <ModelHeaders/>
-    <ModelMenuBar/>
+    <ModelMenuBar :createModel="createNewModel"/>
     <ModelMainGrid :models="models" :remove="removeModel"/>
   </div>
 </template>
@@ -10,10 +10,9 @@
 import ModelHeaders from './components/ModelHeaders';
 import ModelMainGrid from './components/ModelMainGrid';
 import ModelMenuBar from './components/ModelMenuBar';
-
 import Firebase from 'firebase';
-
 import db from './ModelDatabase';
+
 let modelsRef = db.ref("models");
 
 export default {
@@ -34,6 +33,12 @@ export default {
     }
   },
   methods: {
+    createNewModel: function (newModel) {
+      modelsRef.push(newModel);
+      for (let key in newModel) {
+        newModel[key] = '';
+      }
+    },
     removeModel: (model) => {
       modelsRef.child(model['.key']).remove()
     }
