@@ -6,12 +6,7 @@
 
 <script>
   export default {
-    name: 'ModelHeaders',
-    data () {
-      return {
-        msg: 'Welcome to Your Vue.js App'
-      }
-    }
+    name: 'ModelHeaders'
   }
 </script>
 

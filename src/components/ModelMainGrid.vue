@@ -11,32 +11,20 @@
               <th>Model Type</th>
               <th>Sponsor Program</th>
               <th>Manager</th>
+              <th>Rep Code</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="model in models">
               <td><input type="checkbox"></td>
-              <td>John</td>
-              <td>Doe</td>
-              <td>john@example.com</td>
-              <td>john@example.com</td>
-              <td>john@example.com</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>Mary</td>
-              <td>Moe</td>
-              <td>mary@example.com</td>
-              <td>mary@example.com</td>
-              <td>mary@example.com</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>July</td>
-              <td>Dooley</td>
-              <td>july@example.com</td>
-              <td>july@example.com</td>
-              <td>july@example.com</td>
+              <td>{{model.modelName}}</td>
+              <td>{{model.modelDescription}}</td>
+              <td>{{model.modelType}}</td>
+              <td>{{model.sponsorProgram}}</td>
+              <td>{{model.manager}}</td>
+              <td>{{model.repCode}}</td>
+              <button id="delete" class="btn btn-danger btn-sm" @click="removeModel(model)">Delete</button>
             </tr>
           </tbody>
         </table>
@@ -48,14 +36,17 @@
 <script>
   export default {
     name: 'ModelMainGrid',
-    data () {
-      return {
-
+    props: ['models', 'remove'],
+    methods: {
+      removeModel: function(model) {
+        this.remove(model);
       }
     }
   }
 </script>
 
 <style scoped>
-
+#delete {
+  margin-top: 10%;
+}
 </style>
